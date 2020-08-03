@@ -1,5 +1,5 @@
 from xml.dom import minidom
-from cmdConverter import checkXml,loadCoreSignal,loadSignals,synchSignals
+from synchFunctions import checkXml,loadCoreSignal,loadSignals,synchSignals
 import argparse
 import sys
 import pandas as pd
