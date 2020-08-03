@@ -3,20 +3,6 @@ import argparse
 import sys
 from xml.dom import minidom
   
-class cmdConverter:
-    def __init__(self):
-        self.pandaDfNames = []
-        self.rslt = None
-
-    def loadDatasets(self,name,delim):
-        self.df = pd.read_csv(name,encoding="latin1",delimiter=delim)
-        for column in self.df.columns:
-            self.pandaDfNames.append(column)
-        self.rslt = self.pandaDfNames
-
-    def result(self):
-        return self.rslt
-
 def getOptions(args=sys.argv[1:]):
     parser = argparse.ArgumentParser(description="Parses command.")
     parser.add_argument("-i", "--input", help="Your input file.")
