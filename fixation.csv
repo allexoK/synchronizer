@@ -1,4 +1,4 @@
-System time;Event;X Gaze Data; Y Gaze Data 
+System Fixation time;Fixation Event;X Fixation Data; Y Fixation Data 
 1587052494753;Fixation begin;5684;2102
 1587052494753;Fixation begin;5656;2110
 1587052494753;Fixation data;5654;2106

@@ -28,8 +28,13 @@ if(res["error"] == False):
 if(res["error"] == False):
     res = synchSignals(coresignal,signals,options.verbose)
 
+
+
 if(res["error"] == False):
     res.pop("error")
+    ks = res.keys()
+    for k in ks:
+        print(k,len(res[k]))
     if(options.output):
         if(options.verbose == True):
             print("Saving as \"" + options.output + "\"...")
