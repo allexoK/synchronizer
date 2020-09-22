@@ -60,7 +60,7 @@ def loadCoreSignal(path,vrb):
         df = pd.read_csv(filepath,delim)
         cols = list(df.columns)
         response["name"] = name
-        response["x"] = df[cols[xIndex]]
+        response["Time"] = df[cols[xIndex]]
         response["y"] = df[cols[yIndex]]
     response["error"] = error
     return response
@@ -82,7 +82,7 @@ def loadSignals(path,vrb):
         df = pd.read_csv(filepath,delim)
         cols = list(df.columns)
         sig["name"] = name
-        sig["x"] = df[cols[xIndex]]
+        sig["Time"] = df[cols[xIndex]]
         sig["y"] = df[cols[yIndex]]
         sigs.append(sig)
         if(vrb == True):
@@ -99,7 +99,7 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 
 def synchSignals(core,sig,vrb):
     newSigs = {
-        "x":[],
+        "Time":[],
         core["name"]:[]
     }
     for s in sig:
@@ -109,23 +109,23 @@ def synchSignals(core,sig,vrb):
     if(vrb == True):
         print("Synchronizing signals...")
 
-    iters = len(core["x"])
-    for i in range(1,len(core["x"])):
+    iters = len(core["Time"])
+    for i in range(1,len(core["Time"])):
         if (i%100 == 0):
             printProgressBar(i,iters)
-        timeToLookUpHigh = core["x"][i]
-        timeToLookUpLow = core["x"][i-1]
-        newSigs["x"].append(timeToLookUpLow)
+        timeToLookUpHigh = core["Time"][i]
+        timeToLookUpLow = core["Time"][i-1]
+        newSigs["Time"].append(timeToLookUpLow)
         newSigs[core["name"]].append(core["y"][i])
         for i in range(len(sig)):# check all signals if current elements to find has the same time as current core time
             currentSignalCtr = sig[i]["ctr"]
-            if(currentSignalCtr < len(sig[i]["x"])):#if there are still unprocessed values of signals
-                timeOfNextEl = sig[i]["x"][currentSignalCtr]
-                while(timeOfNextEl < timeToLookUpLow and currentSignalCtr < len(sig[i]["x"])):# move time of sig to make it bigger than current core time
+            if(currentSignalCtr < len(sig[i]["Time"])):#if there are still unprocessed values of signals
+                timeOfNextEl = sig[i]["Time"][currentSignalCtr]
+                while(timeOfNextEl < timeToLookUpLow and currentSignalCtr < len(sig[i]["Time"])):# move time of sig to make it bigger than current core time
                     sig[i]["ctr"] += 1
-                    timeOfNextEl = sig[i]["x"][currentSignalCtr]
+                    timeOfNextEl = sig[i]["Time"][currentSignalCtr]
                     currentSignalCtr = sig[i]["ctr"]
-                if(currentSignalCtr < len(sig[i]["x"])):# if signal is not finished yet
+                if(currentSignalCtr < len(sig[i]["Time"])):# if signal is not finished yet
                     if(timeOfNextEl <= timeToLookUpHigh):# if the signal time is in frame timeToLookUpLow and timeToLookUpHigh add it to final signal
                         valueOfSigToSynch = sig[i]["y"][currentSignalCtr]
                         newSigs[sig[i]["name"]].append(valueOfSigToSynch)

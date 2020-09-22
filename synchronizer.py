@@ -11,7 +11,7 @@ class synchronizer:
             res = loadCoreSignal(config,verbose)
             coresignal = {
                 "name":res["name"],
-                "x":res["x"],
+                "Time":res["Time"],
                 "y":res["y"]
             }
         if(res["error"] == False):

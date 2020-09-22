@@ -6,6 +6,8 @@ class configFileCreator:
         df = pd.read_csv("temp/odboceni.csv",delimiter=";")
         keys = df.keys()
 
+        newKeys = ["Time", "X", "Y", "Z", "Xrot", "Yrot", "Zrot", "Speed", "Accelerator", "Break", "Clutch", "Wheel", "Handbreak", "Gear", "Winker", "Wiper", "Buttons"]
+        keys = newKeys
         cc = ConfigCreator(confToCreateName,"temp/odboceni.csv",";","0","1",keys[1])
 
         for i in range(2,len(keys)):
